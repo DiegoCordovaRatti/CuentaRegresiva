@@ -1,28 +1,66 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1><u>Cuenta Regresiva</u></h1>
+    
+    <img class="group timerImg" src="https://miro.medium.com/max/512/1*EmGD7Z4rUiD0RFebPvXJQw.png" alt="">
+
+    <div>
+      <div class="group">
+        <button class="timerButton" @click="startCountdown(2)">2s</button>
+        <button class="timerButton" @click="startCountdown(3)">3s</button>
+        <button class="timerButton" @click="startCountdown(5)">5s</button>
+        <button class="timerButton" @click="startCountdown(7)">7s</button>
+        <button class="timerButton" @click="startCountdown(11)">11s</button>
+        <button class="timerButton" @click="startCountdown(13)">13s</button>
+      </div>
+      <div class="group">
+        <label>Ingresa tu propio temporizador:</label>
+        <input type="number" placeholder="Ingresa aqui!" v-model="myTimer">
+        <button @click="startCountdown(myTimer)">Go!</button>
+      </div>
+    </div>
+    <h1>{{ countdown }}</h1>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+  export default {
+    name: 'App',
+    data() {
+      return {
+        myTimer: '',
+        countdown: '',
+      }
+    },
+    methods: {
+      startCountdown(time) {
+        let thisTimer = time
+        const settingInterval = setInterval(() => {
+          console.log(thisTimer)
+          thisTimer--
+          this.countdown = `${thisTimer}s`
+          if (thisTimer === 0) {
+            clearInterval(settingInterval)
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
+          }
+        }, 1000);
+      }
+    },
   }
-}
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+*{
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+}
+
+.group{
+  margin: 20px 0;
+}
+.timerImg{
+  width: 100px;
+}
+.timerButton{
+  width: 60px;
 }
 </style>
